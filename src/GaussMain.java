@@ -54,7 +54,7 @@ public class GaussMain {
         String inputFile;
         
         // Continue to loop until residual sum is low enough using Block Mapper and Gauss Reducer
-        while (residualSum/CONST.TOTAL_NODES > CONST.RESIDUAL_SUM_DELTA){
+        while (residualSum/(float)Util.blocks.length > CONST.RESIDUAL_SUM_DELTA){
         
         	// Set up subsequent jobs
         	inputFile = outputFile;
@@ -83,7 +83,7 @@ public class GaussMain {
             // Output information
         	System.out.println("Round: " + round + 
         			" \nInner block rounds total: " + innerBlockRounds.getValue() + " avg " + innerBlockRounds.getValue()/68. +
-        			"\nResidual avg: " + residualSum/Util.blocks.length+ "\n");
+        			"\nResidual avg: " + residualSum/(float)Util.blocks.length+ "\n");
         	
             round++;
         	

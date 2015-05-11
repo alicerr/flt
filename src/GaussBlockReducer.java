@@ -140,10 +140,10 @@ public class GaussBlockReducer extends
 			for (Node n : nodesLastPass.values()){
 				//we adjust this a little to make absolutly sure we are puting back what we took out
 				n.setPR(n.getPR() * expectedSum/sumInPr);
-				float residual = (float) (Math.abs((n.getPR() - nodes.get(n.id).getPR()))/n.getPR());
+				float residual = (float) ((long) (Math.abs((n.getPR() - nodes.get(n.id).getPR()))/n.getPR()) * CONST.SIG_FIG_FOR_float_TO_LONG)/CONST.SIG_FIG_FOR_float_TO_LONG;
 				residualSumOuter += residual;
 			}
-			context.getCounter(PageRankEnum.RESIDUAL_SUM).increment((long) (residualSumOuter/nodes.size() * CONST.SIG_FIG_FOR_float_TO_LONG));
+			context.getCounter(PageRankEnum.RESIDUAL_SUM).increment((long) (residualSumOuter/(double)nodes.size() * CONST.SIG_FIG_FOR_float_TO_LONG));
 			// Save updated Block data
 			ByteBuffer block = Util.blockToByteBuffer(nodesLastPass, innerEdges, outerEdges);
 			try {
